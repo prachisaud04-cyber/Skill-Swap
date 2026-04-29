@@ -1,0 +1,101 @@
+const express = require('express');
+const router = express.Router();
+const pool = require('../db');
+const authMiddleware = require('../middleware/auth');
+
+// POST /api/swaps - send a swap request
+router.post('/', authMiddleware, async (req, res) => {
+  const { receiver_id, message } = req.body;
+  const sender_id = req.user.id;
+
+  if (!receiver_id) {
+    return res.status(400).json({ error: 'receiver_id is required' });
+  }
+
+  if (parseInt(receiver_id) === sender_id) {
+    return res.status(400).json({ error: 'Cannot send swap request to yourself' });
+  }
+
+  try {
+    const existing = await pool.query(
+      'SELECT id FROM swap_requests WHERE sender_id = $1 AND receiver_id = $2 AND status = $3',
+      [sender_id, receiver_id, 'pending']
+    );
+    if (existing.rows.length > 0) {
+      return res.status(409).json({ error: 'A pending request already exists with this user' });
+    }
+
+    const result = await pool.query(
+      'INSERT INTO swap_requests (sender_id, receiver_id, message, status) VALUES ($1, $2, $3, $4) RETURNING *',
+      [sender_id, receiver_id, message || null, 'pending']
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Create swap error:', err);
+    res.status(500).json({ error: 'Server error creating swap request' });
+  }
+});
+
+// GET /api/swaps - get all swap requests for current user
+router.get('/', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const result = await pool.query(
+      `SELECT sr.*,
+        s.name as sender_name, s.profile_picture as sender_picture, s.badge as sender_badge,
+        r.name as receiver_name, r.profile_picture as receiver_picture, r.badge as receiver_badge
+       FROM swap_requests sr
+       JOIN users s ON sr.sender_id = s.id
+       JOIN users r ON sr.receiver_id = r.id
+       WHERE sr.sender_id = $1 OR sr.receiver_id = $1
+       ORDER BY sr.created_at DESC`,
+      [userId]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Get swaps error:', err);
+    res.status(500).json({ error: 'Server error fetching swap requests' });
+  }
+});
+
+// PUT /api/swaps/:id - accept or reject a swap request
+router.put('/:id', authMiddleware, async (req, res) => {
+  const swapId = parseInt(req.params.id);
+  const { status } = req.body;
+  const userId = req.user.id;
+
+  if (!['accepted', 'rejected'].includes(status)) {
+    return res.status(400).json({ error: 'Status must be accepted or rejected' });
+  }
+
+  try {
+    const swapResult = await pool.query('SELECT * FROM swap_requests WHERE id = $1', [swapId]);
+    if (swapResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Swap request not found' });
+    }
+
+    const swap = swapResult.rows[0];
+    if (swap.receiver_id !== userId) {
+      return res.status(403).json({ error: 'Only the receiver can accept or reject this request' });
+    }
+
+    if (swap.status !== 'pending') {
+      return res.status(400).json({ error: 'This request has already been processed' });
+    }
+
+    const result = await pool.query(
+      'UPDATE swap_requests SET status = $1 WHERE id = $2 RETURNING *',
+      [status, swapId]
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Update swap error:', err);
+    res.status(500).json({ error: 'Server error updating swap request' });
+  }
+});
+
+module.exports = router;
