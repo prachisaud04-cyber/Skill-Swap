@@ -1,92 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import StarRating from './StarRating.jsx';
-import api from '../api/axios.js';
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
 
-export default function UserCard({ user, onSwapSent }) {
-  const { user: currentUser } = useAuth();
-  const navigate = useNavigate();
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState('');
-
-  const badgeClass = {
-    Beginner: 'badge-beginner',
-    Intermediate: 'badge-intermediate',
-    Expert: 'badge-expert',
-  }[user.badge] || 'badge-beginner';
-
-  const handleRequestSwap = async () => {
-    setSending(true);
-    setError('');
-    try {
-      await api.post('/api/swaps', { receiver_id: user.id, message: '' });
-      setSent(true);
-      if (onSwapSent) onSwapSent();
-    } catch (err) {
-      const msg = err.response?.data?.error || 'Failed to send request';
-      setError(msg);
-    } finally {
-      setSending(false);
-    }
-  };
-
-  return (
-    <div className="user-card">
-      <div className="user-card-header">
-        {user.profile_picture ? (
-          <img src={user.profile_picture} alt={user.name} className="user-avatar" />
-        ) : (
-          <div className="user-avatar-placeholder">{user.name.charAt(0).toUpperCase()}</div>
-        )}
-        <div className="user-card-info">
-          <h3>{user.name}</h3>
-          <p>{user.university || 'No university listed'}</p>
-          <span className={`badge ${badgeClass}`}>{user.badge || 'Beginner'}</span>
-        </div>
-      </div>
-
-      <StarRating rating={user.avg_rating} count={user.rating_count} />
-
-      {user.skills_offered && user.skills_offered.length > 0 && (
-        <div className="skills-section">
-          <div className="skills-label">Offers</div>
-          <div className="skills-tags">
-            {user.skills_offered.slice(0, 4).map((skill, i) => (
-              <span key={i} className="skill-tag">✅ {skill}</span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {user.skills_wanted && user.skills_wanted.length > 0 && (
-        <div className="skills-section">
-          <div className="skills-label">Wants</div>
-          <div className="skills-tags">
-            {user.skills_wanted.slice(0, 4).map((skill, i) => (
-              <span key={i} className="skill-tag">🔍 {skill}</span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {error && <div className="alert alert-error">{error}</div>}
-
-      <div className="user-card-actions">
-        <button className="btn-secondary btn-sm" onClick={() => navigate(`/profile/${user.id}`)}>
-          View Profile
-        </button>
-        {currentUser && currentUser.id !== user.id && (
-          <button
-            className="btn-sm"
-            onClick={handleRequestSwap}
-            disabled={sending || sent}
-          >
-            {sent ? '✓ Sent' : sending ? 'Sending...' : '🔄 Request Swap'}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
+export default reportWebVitals;
