@@ -6,12 +6,12 @@
 TRUNCATE TABLE ratings, messages, swap_requests, custom_skill_requests, skills_wanted, skills_offered, users RESTART IDENTITY CASCADE;
 
 -- =============================================
--- USERS (password: demo1234)
+-- USERS (password: test1234)
 -- =============================================
 INSERT INTO users (name, email, password_hash, university, bio, badge, created_at) VALUES
 (
-  'Alex Chen',
-  'alex.chen@demo.com',
+  'Prachi Saud',
+  'prachisaud@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
   'MIT',
   'Full-stack developer with a passion for building scalable web apps. I love teaching React and modern JavaScript. Looking to learn data science and ML.',
@@ -28,35 +28,35 @@ INSERT INTO users (name, email, password_hash, university, bio, badge, created_a
   NOW() - INTERVAL '25 days'
 ),
 (
-  'Marcus Johnson',
-  'marcus.j@demo.com',
+  'Hridip Sarma',
+  'hridip@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
-  'University of Texas',
+  'Gauhati University',
   'UI/UX designer who codes. Specializing in Figma, design systems, and CSS animations. Eager to learn backend development and databases.',
   'Intermediate',
   NOW() - INTERVAL '20 days'
 ),
 (
-  'Sofia Martinez',
-  'sofia.m@demo.com',
+  'Licha Pathak',
+  'licha@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
-  'UC Berkeley',
+  'IIT Banglore',
   'Cybersecurity student and ethical hacker. I know penetration testing and network security. Want to learn mobile app development.',
   'Intermediate',
   NOW() - INTERVAL '18 days'
 ),
 (
-  'James Park',
-  'james.park@demo.com',
+  'Abhijeet Das',
+  'abhijeet@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
-  'Carnegie Mellon',
+  'Oxford University',
   'iOS and Android developer with 3+ years experience. Swift and Kotlin are my superpowers. Looking to level up my DevOps and cloud knowledge.',
   'Expert',
   NOW() - INTERVAL '15 days'
 ),
 (
-  'Emma Wilson',
-  'emma.wilson@demo.com',
+  'Azadul Hoque',
+  'Azadul@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
   'Oxford University',
   'Data analyst and visualization wizard. Expert in Tableau, Power BI, and SQL. Curious about machine learning and AI applications.',
@@ -73,8 +73,8 @@ INSERT INTO users (name, email, password_hash, university, bio, badge, created_a
   NOW() - INTERVAL '10 days'
 ),
 (
-  'Chloe Dubois',
-  'chloe.d@demo.com',
+  'Raju Parasor',
+  'rajuparasor.d@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
   'École Polytechnique',
   'Blockchain developer and smart contract engineer. Experienced with Solidity and Web3.js. Looking to learn about data science and Python.',
@@ -82,19 +82,19 @@ INSERT INTO users (name, email, password_hash, university, bio, badge, created_a
   NOW() - INTERVAL '8 days'
 ),
 (
-  'Tyler Brooks',
-  'tyler.b@demo.com',
+  'Anurag Deka',
+  'anuragdeka.b@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
-  'Georgia Tech',
+  'Infosis Tech',
   'Game developer using Unity and Unreal Engine. Passionate about graphics programming and shaders. Wants to learn web development.',
   'Beginner',
   NOW() - INTERVAL '6 days'
 ),
 (
-  'Aisha Nkosi',
+  'Aisha Das',
   'aisha.n@demo.com',
   '$2a$10$vPagHQo19RAj8YjhsOS5Fur777phIUG7.VbiOLc0A4nBPKWeB4ITS',
-  'University of Cape Town',
+  'University of Nalbari',
   'Backend engineer specializing in Go and microservices. Experienced with gRPC and Kubernetes. Interested in learning ML and data pipelines.',
   'Expert',
   NOW() - INTERVAL '3 days'
@@ -103,7 +103,7 @@ INSERT INTO users (name, email, password_hash, university, bio, badge, created_a
 -- =============================================
 -- SKILLS OFFERED
 -- =============================================
--- Alex Chen (1)
+-- Prachi Saud (1)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (1, 'React'), (1, 'Node.js'), (1, 'TypeScript'), (1, 'GraphQL'), (1, 'PostgreSQL');
 
@@ -111,19 +111,19 @@ INSERT INTO skills_offered (user_id, skill) VALUES
 INSERT INTO skills_offered (user_id, skill) VALUES
 (2, 'Python'), (2, 'Machine Learning'), (2, 'TensorFlow'), (2, 'Data Analysis'), (2, 'Statistics');
 
--- Marcus Johnson (3)
+-- Hridip Sarma (3)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (3, 'UI/UX Design'), (3, 'Figma'), (3, 'CSS Animations'), (3, 'Design Systems'), (3, 'Adobe XD');
 
--- Sofia Martinez (4)
+-- Licha Pathak (4)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (4, 'Cybersecurity'), (4, 'Penetration Testing'), (4, 'Network Security'), (4, 'Linux'), (4, 'Ethical Hacking');
 
--- James Park (5)
+-- Abhijeet Das (5)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (5, 'iOS Development'), (5, 'Android Development'), (5, 'Swift'), (5, 'Kotlin'), (5, 'React Native');
 
--- Emma Wilson (6)
+-- Azadul Hoque (6)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (6, 'Data Visualization'), (6, 'Tableau'), (6, 'Power BI'), (6, 'SQL'), (6, 'Excel / VBA');
 
@@ -131,22 +131,22 @@ INSERT INTO skills_offered (user_id, skill) VALUES
 INSERT INTO skills_offered (user_id, skill) VALUES
 (7, 'AWS'), (7, 'Docker'), (7, 'Kubernetes'), (7, 'CI/CD Pipelines'), (7, 'Terraform');
 
--- Chloe Dubois (8)
+-- Raju parasor (8)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (8, 'Blockchain'), (8, 'Solidity'), (8, 'Web3.js'), (8, 'Smart Contracts'), (8, 'Ethereum');
 
--- Tyler Brooks (9)
+-- Anurag Deka (9)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (9, 'Unity'), (9, 'Unreal Engine'), (9, 'C#'), (9, 'Game Design'), (9, 'GLSL Shaders');
 
--- Aisha Nkosi (10)
+-- Aisha Das (10)
 INSERT INTO skills_offered (user_id, skill) VALUES
 (10, 'Go (Golang)'), (10, 'Microservices'), (10, 'gRPC'), (10, 'Kubernetes'), (10, 'System Design');
 
 -- =============================================
 -- SKILLS WANTED
 -- =============================================
--- Alex Chen (1)
+-- Prachi Saud (1)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (1, 'Machine Learning'), (1, 'Data Science'), (1, 'Python'), (1, 'UI/UX Design');
 
@@ -154,19 +154,19 @@ INSERT INTO skills_wanted (user_id, skill) VALUES
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (2, 'React'), (2, 'TypeScript'), (2, 'UI/UX Design'), (2, 'GraphQL');
 
--- Marcus Johnson (3)
+-- Hridip Sarma (3)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (3, 'Node.js'), (3, 'PostgreSQL'), (3, 'AWS'), (3, 'Docker');
 
--- Sofia Martinez (4)
+-- Licha Pathak (4)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (4, 'iOS Development'), (4, 'React Native'), (4, 'Flutter'), (4, 'Swift');
 
--- James Park (5)
+-- Abhijeet Das (5)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (5, 'AWS'), (5, 'Docker'), (5, 'Kubernetes'), (5, 'CI/CD Pipelines');
 
--- Emma Wilson (6)
+-- Azadul Hoque(6)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (6, 'Machine Learning'), (6, 'Python'), (6, 'TensorFlow'), (6, 'AI Applications');
 
@@ -174,15 +174,15 @@ INSERT INTO skills_wanted (user_id, skill) VALUES
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (7, 'React'), (7, 'UI/UX Design'), (7, 'Figma'), (7, 'CSS Animations');
 
--- Chloe Dubois (8)
+-- Raju Parasor (8)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (8, 'Python'), (8, 'Data Science'), (8, 'Machine Learning'), (8, 'Data Analysis');
 
--- Tyler Brooks (9)
+-- Anurag Deka (9)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (9, 'React'), (9, 'Node.js'), (9, 'TypeScript'), (9, 'Web APIs');
 
--- Aisha Nkosi (10)
+-- Aisha Das (10)
 INSERT INTO skills_wanted (user_id, skill) VALUES
 (10, 'Machine Learning'), (10, 'Python ML Pipelines'), (10, 'Data Engineering'), (10, 'Spark');
 
@@ -204,32 +204,32 @@ INSERT INTO swap_requests (sender_id, receiver_id, status, message, created_at) 
 -- =============================================
 -- MESSAGES (for accepted swaps)
 -- =============================================
--- Swap 1: Alex (1) ↔ Priya (2)
+-- Swap 1: Prachi (1) ↔ Priya (2)
 INSERT INTO messages (swap_id, sender_id, content, created_at) VALUES
 (1, 1, 'Hey Priya! Excited to start our skill exchange. When are you free this week?', NOW() - INTERVAL '19 days'),
-(1, 2, 'Hi Alex! I''m free Wednesday and Friday evenings. Does that work for you?', NOW() - INTERVAL '19 days'),
+(1, 2, 'Hi Prachi! I''m free Wednesday and Friday evenings. Does that work for you?', NOW() - INTERVAL '19 days'),
 (1, 1, 'Perfect! Let''s start with a 1-hour React intro on Wednesday. I''ll prep some exercises.', NOW() - INTERVAL '18 days'),
 (1, 2, 'Awesome! And I''ll walk you through a Python ML notebook on Friday. Deal!', NOW() - INTERVAL '18 days'),
 (1, 1, 'Just finished our first session — you picked up React hooks really fast!', NOW() - INTERVAL '15 days'),
 (1, 2, 'Thanks! Your ML session was eye-opening. NumPy and Pandas make so much sense now.', NOW() - INTERVAL '15 days');
 
--- Swap 2: Priya (2) ↔ Marcus (3)
+-- Swap 2: Priya (2) ↔ Hridip (3)
 INSERT INTO messages (swap_id, sender_id, content, created_at) VALUES
-(2, 2, 'Marcus! Looking forward to learning design from you. I think my apps lack good UX.', NOW() - INTERVAL '17 days'),
+(2, 2, 'Hridip! Looking forward to learning design from you. I think my apps lack good UX.', NOW() - INTERVAL '17 days'),
 (2, 3, 'Don''t worry, I''ll show you the fundamentals. Let''s start with Figma basics.', NOW() - INTERVAL '17 days'),
 (2, 2, 'That first session was great! I can already see how layout grids help.', NOW() - INTERVAL '14 days'),
 (2, 3, 'You''re a fast learner! Your Python session really helped me understand backend logic.', NOW() - INTERVAL '14 days');
 
--- Swap 3: Marcus (3) ↔ Raj (7)
+-- Swap 3: Hridip (3) ↔ Licha Pathak (7)
 INSERT INTO messages (swap_id, sender_id, content, created_at) VALUES
-(3, 3, 'Raj, ready to learn some cloud magic! Can we start with an AWS overview?', NOW() - INTERVAL '14 days'),
+(3, 3, 'Licha, ready to learn some cloud magic! Can we start with an AWS overview?', NOW() - INTERVAL '14 days'),
 (3, 7, 'Sure! Let''s start with S3 and EC2. And I''m excited for your Figma workshop!', NOW() - INTERVAL '14 days'),
 (3, 3, 'EC2 setup done! I deployed my first instance. This is so satisfying.', NOW() - INTERVAL '11 days'),
 (3, 7, 'Great progress! The design system you showed me already improved my team''s workflow.', NOW() - INTERVAL '10 days');
 
--- Swap 9: Aisha (10) ↔ Priya (2)
+-- Swap 9: Abhijeet (10) ↔ Azadul (2)
 INSERT INTO messages (swap_id, sender_id, content, created_at) VALUES
-(9, 10, 'Hi Priya! Ready to dive into ML. What would you suggest starting with?', NOW() - INTERVAL '13 days'),
+(9, 10, 'Hi Azadul! Ready to dive into ML. What would you suggest starting with?', NOW() - INTERVAL '13 days'),
 (9, 2, 'Let''s start with Scikit-learn! I''ll share a Jupyter notebook I prepared.', NOW() - INTERVAL '13 days'),
 (9, 10, 'Your intro to supervised learning was brilliant! Loved the examples.', NOW() - INTERVAL '10 days'),
 (9, 2, 'Your Go tutorial saved me so much time! gRPC makes sense now.', NOW() - INTERVAL '9 days');
